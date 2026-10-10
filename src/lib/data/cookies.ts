@@ -55,7 +55,9 @@ export const setAuthToken = async (token: string) => {
     maxAge: 60 * 60 * 24 * 7,
     httpOnly: true,
     sameSite: "strict",
-    secure: process.env.NODE_ENV === "production",
+    // TODO(https): restore `process.env.NODE_ENV === "production"` once behind TLS.
+    // Secure cookies are dropped over plain HTTP, which silently breaks auth.
+    secure: false,
   })
 }
 
@@ -77,7 +79,9 @@ export const setCartId = async (cartId: string) => {
     maxAge: 60 * 60 * 24 * 7,
     httpOnly: true,
     sameSite: "strict",
-    secure: process.env.NODE_ENV === "production",
+    // TODO(https): restore `process.env.NODE_ENV === "production"` once behind TLS.
+    // Secure cookies are dropped over plain HTTP, which silently empties the cart.
+    secure: false,
   })
 }
 
