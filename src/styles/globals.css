@@ -12,6 +12,17 @@
     background: #8a0303;
     color: #e8e6e1;
   }
+
+  /* Dark-theme sweep: the starter hardcodes bg-white/text-black on surfaces
+     (cart, checkout, selects). Remap to void tones until components are
+     converted one by one. */
+  .bg-white {
+    background-color: #161619 !important;
+  }
+
+  .text-black {
+    color: #e8e6e1 !important;
+  }
   /* Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;

@@ -28,7 +28,7 @@ export default async function Nav() {
           <div className="flex items-center h-full">
             <LocalizedClientLink
               href="/"
-              className="font-blackletter text-3xl text-bone hover:text-blood-ember transition-colors leading-none pt-1"
+              className="font-blackletter text-2xl small:text-3xl text-bone hover:text-blood-ember transition-colors leading-none pt-1 whitespace-nowrap"
               data-testid="nav-store-link"
             >
               Voidcrafters

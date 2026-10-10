@@ -99,7 +99,7 @@ const CartDropdown = ({
         >
           <PopoverPanel
             static
-            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-white border-x border-b border-gray-200 w-[420px] text-ui-fg-base"
+            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-void-card border border-blood/40 border-t-2 border-t-blood w-[420px] text-bone shadow-[0_8px_40px_rgba(138,3,3,0.25)]"
             data-testid="nav-cart-dropdown"
           >
             <div className="p-4 flex items-center justify-center">
