@@ -27,9 +27,11 @@ export default async function RelatedProducts({
     queryParams.collection_id = [product.collection_id]
   }
   if (product.tags) {
-    queryParams.tag_id = product.tags
-      .map((t) => t.id)
-      .filter(Boolean) as string[]
+    const tagIds = product.tags.map((t) => t.id).filter(Boolean) as string[]
+    // NOTE: an empty tag_id crashes the API (500) — only send when non-empty
+    if (tagIds.length) {
+      queryParams.tag_id = tagIds
+    }
   }
   queryParams.is_giftcard = false
 
