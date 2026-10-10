@@ -10,6 +10,11 @@ type Props = {
   searchParams: Promise<{ v_id?: string }>
 }
 
+// Product pages depend on request-time data (region, variant selection)
+// and must never be statically prerendered — prerendering throws
+// DYNAMIC_SERVER_USAGE and serves a 500.
+export const dynamic = "force-dynamic"
+
 export async function generateStaticParams() {
   try {
     const countryCodes = await listRegions().then((regions) =>
