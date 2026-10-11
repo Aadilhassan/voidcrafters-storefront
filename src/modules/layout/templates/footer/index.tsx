@@ -45,6 +45,30 @@ export default async function Footer() {
             <p className="font-display text-[11px] tracking-[0.2em] uppercase text-blood-ember mt-4">
               Prepaid secure • Free ship over ₹499 • 7-day exchange
             </p>
+            <a
+              href="https://www.instagram.com/voidcrafters"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-5 inline-flex items-center gap-2.5 text-bone-dim hover:text-bone transition-colors"
+            >
+              <svg
+                width={20}
+                height={20}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.5}
+                strokeLinecap="square"
+                strokeLinejoin="miter"
+              >
+                <rect x="3.5" y="3.5" width="17" height="17" rx="4.5" />
+                <circle cx="12" cy="12" r="3.8" />
+                <circle cx="17" cy="7" r="0.6" fill="currentColor" stroke="none" />
+              </svg>
+              <span className="font-display text-xs tracking-[0.25em] uppercase">
+                @voidcrafters
+              </span>
+            </a>
           </div>
           <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
             {productCategories && productCategories?.length > 0 && (
@@ -140,6 +164,14 @@ export default async function Footer() {
                     href="/store"
                   >
                     Shop all
+                  </LocalizedClientLink>
+                </li>
+                <li>
+                  <LocalizedClientLink
+                    className="hover:text-ui-fg-base"
+                    href="/blog"
+                  >
+                    Journal
                   </LocalizedClientLink>
                 </li>
                 <li>

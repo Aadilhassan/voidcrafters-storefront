@@ -3,17 +3,15 @@ import Image from "next/image"
 import { listCategories } from "@lib/data/categories"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
+const PX = (id: number) =>
+  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=800`
+
 const TILE_IMAGES: Record<string, string> = {
-  rings:
-    "https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=800&auto=format&fit=crop",
-  necklaces:
-    "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=800&auto=format&fit=crop",
-  chokers:
-    "https://images.unsplash.com/photo-1600003014755-ba31aa59c4b6?q=80&w=800&auto=format&fit=crop",
-  earrings:
-    "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=800&auto=format&fit=crop",
-  piercings:
-    "https://images.unsplash.com/photo-1617038220319-276d3cfab638?q=80&w=800&auto=format&fit=crop",
+  rings: PX(2735981),
+  necklaces: PX(5629377),
+  chokers: PX(33497581),
+  earrings: PX(15785494),
+  piercings: PX(5821474),
 }
 
 const FALLBACK =

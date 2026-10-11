@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 
 import FeaturedProducts from "@modules/home/components/featured-products"
-import Hero from "@modules/home/components/hero"
+import BannerCarousel from "@modules/home/components/banner-carousel"
 import CategoryTiles from "@modules/home/components/category-tiles"
 import LatestDrops from "@modules/home/components/latest-drops"
 import Manifesto from "@modules/home/components/manifesto"
@@ -34,7 +34,7 @@ export default async function Home(props: {
 
   return (
     <>
-      <Hero />
+      <BannerCarousel />
       <TrustStrip />
       <CategoryTiles />
       <LatestDrops region={region} />

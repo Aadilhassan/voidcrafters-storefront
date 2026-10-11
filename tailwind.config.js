@@ -112,6 +112,16 @@ module.exports = {
             transform: "translateY(0)",
           },
         },
+        "fade-up": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(18px)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
         "fade-out-top": {
           "0%": {
             height: "100%",
@@ -163,6 +173,7 @@ module.exports = {
         "fade-in-right":
           "fade-in-right 0.3s cubic-bezier(0.5, 0, 0.5, 1) forwards",
         "fade-in-top": "fade-in-top 0.2s cubic-bezier(0.5, 0, 0.5, 1) forwards",
+        "fade-up": "fade-up 0.6s ease-out",
         "fade-out-top":
           "fade-out-top 0.2s cubic-bezier(0.5, 0, 0.5, 1) forwards",
         "accordion-open":
