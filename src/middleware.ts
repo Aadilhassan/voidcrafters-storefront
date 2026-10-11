@@ -119,6 +119,16 @@ export async function middleware(request: NextRequest) {
   const urlHasCountryCode =
     countryCode && request.nextUrl.pathname.split("/")[1].includes(countryCode)
 
+  // Static assets (any path with a file extension: sw.js, manifest,
+  // offline.html, icons…) bypass region + cookie logic entirely. This must
+  // run before the cookie redirect below: a path like /offline.html
+  // contains the substring "in", which would otherwise match the "in"
+  // country code and trigger a self-redirect loop for cookieless visitors
+  // (breaking service-worker install on first visit).
+  if (request.nextUrl.pathname.includes(".")) {
+    return NextResponse.next()
+  }
+
   // if one of the country codes is in the url and the cache id is set, return next
   if (urlHasCountryCode && cacheIdCookie) {
     return NextResponse.next()
@@ -131,11 +141,6 @@ export async function middleware(request: NextRequest) {
     })
 
     return response
-  }
-
-  // check if the url is a static asset
-  if (request.nextUrl.pathname.includes(".")) {
-    return NextResponse.next()
   }
 
   const redirectPath =

@@ -368,6 +368,17 @@ const Shipping: React.FC<ShippingProps> = ({
               error={error}
               data-testid="delivery-option-error-message"
             />
+            {!!shippingMethodId && (
+              <p className="text-xs tracking-wide text-bone-faint mb-3">
+                ✦ Order today — estimated delivery by{" "}
+                <span className="text-bone">
+                  {new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toLocaleDateString(
+                    "en-IN",
+                    { weekday: "short", day: "numeric", month: "short" }
+                  )}
+                </span>
+              </p>
+            )}
             <Button
               size="large"
               className="mt"

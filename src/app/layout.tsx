@@ -2,6 +2,7 @@ import { Cinzel } from "next/font/google"
 import { getBaseURL } from "@lib/util/env"
 import { Metadata } from "next"
 import Script from "next/script"
+import SwRegister from "@modules/common/components/sw-register"
 import "styles/globals.css"
 
 const GA_MEASUREMENT_ID = "G-BE98ZMP07T"
@@ -22,6 +23,12 @@ export const metadata: Metadata = {
   description:
     "Occult-inspired goth jewellery: chokers, rings, piercings and body chains. Forged for the dark-hearted. Ships across India and worldwide.",
   themeColor: "#0a0a0a",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "Voidcrafters",
+    statusBarStyle: "black-translucent",
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -55,6 +62,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
     >
       <body>
         <main className="relative bg-void text-bone">{props.children}</main>
+        <SwRegister />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
           strategy="afterInteractive"

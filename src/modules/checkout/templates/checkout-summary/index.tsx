@@ -1,9 +1,12 @@
 import { Heading } from "@medusajs/ui"
 
 import ItemsPreviewTemplate from "@modules/cart/templates/preview"
+import AvailableOffers from "@modules/checkout/components/available-offers"
+import CheckoutUpsells from "@modules/checkout/components/checkout-upsells"
 import DiscountCode from "@modules/checkout/components/discount-code"
 import CartTotals from "@modules/common/components/cart-totals"
 import Divider from "@modules/common/components/divider"
+import ProductTrust from "@modules/products/components/product-trust"
 
 const CheckoutSummary = ({ cart }: { cart: any }) => {
   return (
@@ -19,8 +22,11 @@ const CheckoutSummary = ({ cart }: { cart: any }) => {
         <Divider className="my-6" />
         <CartTotals totals={cart} />
         <ItemsPreviewTemplate cart={cart} />
-        <div className="my-6">
+        <div className="mt-6 flex flex-col gap-4">
+          <AvailableOffers promotions={cart.promotions} />
           <DiscountCode cart={cart} />
+          <CheckoutUpsells cart={cart} />
+          <ProductTrust />
         </div>
       </div>
     </div>

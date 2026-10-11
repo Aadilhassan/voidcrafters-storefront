@@ -81,6 +81,43 @@ const ShippingAddress = ({
     }
   }, [cart]) // Add cart as a dependency
 
+  const [pinStatus, setPinStatus] = useState<
+    "idle" | "locating" | "found" | "notfound"
+  >("idle")
+
+  // GoKwik-style pincode autofill: 6-digit India PIN → city + state.
+  useEffect(() => {
+    const pin = (formData["shipping_address.postal_code"] || "").trim()
+    if (!/^\d{6}$/.test(pin)) {
+      setPinStatus("idle")
+      return
+    }
+    let cancelled = false
+    setPinStatus("locating")
+    fetch(`https://api.postalpincode.in/pincode/${pin}`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (cancelled) return
+        const office = data?.[0]?.PostOffice?.[0]
+        if (office) {
+          setFormData((prev: Record<string, any>) => ({
+            ...prev,
+            "shipping_address.city": prev["shipping_address.city"] || office.District || "",
+            "shipping_address.province": prev["shipping_address.province"] || office.State || "",
+          }))
+          setPinStatus("found")
+        } else {
+          setPinStatus("notfound")
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setPinStatus("notfound")
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [formData["shipping_address.postal_code"]])
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLInputElement | HTMLSelectElement
@@ -110,7 +147,7 @@ const ShippingAddress = ({
           />
         </Container>
       )}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 small:grid-cols-2 gap-4">
         <Input
           label="First name"
           name="shipping_address.first_name"
@@ -173,6 +210,14 @@ const ShippingAddress = ({
           required
           data-testid="shipping-country-select"
         />
+        {pinStatus !== "idle" && (
+          <p className="small:col-span-2 -mt-1 text-xs tracking-wide text-bone-faint">
+            {pinStatus === "locating" && "Locating pincode…"}
+            {pinStatus === "found" && "✦ City & state auto-filled from pincode"}
+            {pinStatus === "notfound" &&
+              "Couldn't find that pincode — please enter city & state manually."}
+          </p>
+        )}
         <Input
           label="State / Province"
           name="shipping_address.province"
@@ -191,7 +236,7 @@ const ShippingAddress = ({
           data-testid="billing-address-checkbox"
         />
       </div>
-      <div className="grid grid-cols-2 gap-4 mb-4">
+      <div className="grid grid-cols-1 small:grid-cols-2 gap-4 mb-4">
         <Input
           label="Email"
           name="email"

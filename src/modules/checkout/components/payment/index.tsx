@@ -134,6 +134,10 @@ const Payment = ({
       </div>
       <div>
         <div className={isOpen ? "block" : "hidden"}>
+          <p className="rounded-soft ring-1 ring-white/10 bg-void-card px-4 py-2.5 text-xs tracking-wide text-bone-dim mb-4">
+            ✦ 100% secure prepaid checkout — UPI, cards & netbanking. No COD,
+            no spam calls.
+          </p>
           {!paidByGiftcard && availablePaymentMethods?.length && (
             <>
               <RadioGroup
