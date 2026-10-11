@@ -1,15 +1,20 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
-import { BLOG_POSTS, getPost } from "@lib/data/blog"
+import { getPost } from "@lib/data/blog"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
 type Props = {
   params: Promise<{ countryCode: string; handle: string }>
 }
 
+// Blog posts depend on request-time region data and must never be
+// statically prerendered — prerendering without a countryCode throws
+// and serves a 500 in production (same as product pages).
+export const dynamic = "force-dynamic"
+
 export async function generateStaticParams() {
-  return BLOG_POSTS.map((p) => ({ handle: p.handle }))
+  return []
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
