@@ -21,7 +21,7 @@ type Slide = {
 const SLIDES: Slide[] = [
   {
     kicker: "The first crypt drop is live",
-    title: "10 relics from ₹599",
+    title: "15 relics from ₹599",
     sub: "Rings, chokers, piercings & chains — skin-safe steel, priced in rupees.",
     cta: "Shop the drop",
     href: "/store",

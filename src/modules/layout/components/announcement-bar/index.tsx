@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 const MESSAGES = [
   "Free shipping across India on orders over ₹499",
   "Secure prepaid checkout — UPI & cards accepted",
-  "The first crypt drop is live — 10 relics from ₹599",
+  "The first crypt drop is live — 15 relics from ₹599",
 ]
 
 export default function AnnouncementBar() {
