@@ -23,11 +23,15 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
   "data-testid": dataTestid,
 }) => {
   const initialImage = thumbnail || images?.[0]?.url
+  const hoverImage =
+    images?.[1]?.url && images[1].url !== initialImage
+      ? images[1].url
+      : undefined
 
   return (
     <Container
       className={clx(
-        "relative w-full overflow-hidden p-4 bg-ui-bg-subtle shadow-elevation-card-rest rounded-large group-hover:shadow-elevation-card-hover transition-shadow ease-in-out duration-150",
+        "relative w-full overflow-hidden bg-void-card shadow-elevation-card-rest rounded-soft ring-1 ring-white/10 group-hover:ring-blood/60 group-hover:shadow-elevation-card-hover transition-all ease-in-out duration-300",
         className,
         {
           "aspect-[11/14]": isFeatured,
@@ -41,25 +45,42 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
       )}
       data-testid={dataTestid}
     >
-      <ImageOrPlaceholder image={initialImage} size={size} />
+      <ImageOrPlaceholder image={initialImage} hoverImage={hoverImage} size={size} />
     </Container>
   )
 }
 
 const ImageOrPlaceholder = ({
   image,
+  hoverImage,
   size,
-}: Pick<ThumbnailProps, "size"> & { image?: string }) => {
+}: Pick<ThumbnailProps, "size"> & { image?: string; hoverImage?: string }) => {
   return image ? (
-    <Image
-      src={image}
-      alt="Thumbnail"
-      className="absolute inset-0 object-cover object-center"
-      draggable={false}
-      quality={50}
-      sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
-      fill
-    />
+    <>
+      <Image
+        src={image}
+        alt="Product thumbnail"
+        className={`absolute inset-0 object-cover object-center transition-all duration-500 ease-out group-hover:scale-105${
+          hoverImage ? " group-hover:opacity-0" : ""
+        }`}
+        draggable={false}
+        quality={75}
+        sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
+        fill
+      />
+      {hoverImage && (
+        <Image
+          src={hoverImage}
+          alt="Product alternate view"
+          aria-hidden
+          className="absolute inset-0 object-cover object-center opacity-0 scale-105 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:scale-100"
+          draggable={false}
+          quality={75}
+          sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
+          fill
+        />
+      )}
+    </>
   ) : (
     <div className="w-full h-full absolute inset-0 flex items-center justify-center">
       <PlaceholderImage size={size === "small" ? 16 : 24} />

@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 import { listCategories } from "@lib/data/categories"
 import { listCollections } from "@lib/data/collections"
 import { Text, clx } from "@medusajs/ui"
@@ -17,13 +19,31 @@ export default async function Footer() {
           <div>
             <LocalizedClientLink
               href="/"
-              className="font-blackletter text-3xl text-bone hover:text-blood-ember transition-colors leading-none"
+              className="flex items-center gap-3 leading-none"
             >
-              Voidcrafters
+              <Image
+                src="/brand/sigil-bone-blood.svg"
+                alt=""
+                aria-hidden
+                width={52}
+                height={52}
+                className="h-12 w-12 shrink-0"
+              />
+              <span>
+                <span className="block font-display font-black text-2xl tracking-[0.12em] uppercase text-bone">
+                  Voidcrafters
+                </span>
+                <span className="block font-display text-[10px] tracking-[0.35em] uppercase text-bone-faint mt-1">
+                  Forged for the dark-hearted
+                </span>
+              </span>
             </LocalizedClientLink>
             <p className="text-bone-faint text-small-regular mt-3 max-w-xs">
               Goth &amp; alt-fashion jewellery. Forged for the dark-hearted —
               shipped across India and worldwide.
+            </p>
+            <p className="font-display text-[11px] tracking-[0.2em] uppercase text-blood-ember mt-4">
+              Prepaid secure • Free ship over ₹499 • 7-day exchange
             </p>
           </div>
           <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">

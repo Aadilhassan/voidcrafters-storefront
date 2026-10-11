@@ -11,6 +11,7 @@ import { notFound } from "next/navigation"
 import { HttpTypes } from "@medusajs/types"
 
 import ProductActionsWrapper from "./product-actions-wrapper"
+import ProductTrust from "@modules/products/components/product-trust"
 
 type ProductTemplateProps = {
   product: HttpTypes.StoreProduct
@@ -55,6 +56,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
           >
             <ProductActionsWrapper id={product.id} region={region} />
           </Suspense>
+          <ProductTrust />
         </div>
       </div>
       <div
