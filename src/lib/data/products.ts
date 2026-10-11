@@ -6,7 +6,6 @@ import { HttpTypes } from "@medusajs/types"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import { getAuthHeaders, getCacheOptions, getFetchCacheMode } from "./cookies"
 import { getRegion, retrieveRegion } from "./regions"
-
 export const listProducts = async ({
   pageParam = 1,
   queryParams,
@@ -135,5 +134,55 @@ export const listProductsWithSort = async ({
     },
     nextPage,
     queryParams,
+  }
+}
+
+/**
+ * Full-text product search via Meilisearch (hydrated with native pricing).
+ * Falls back to [] when the query is empty or search is unreachable —
+ * search must never break the page.
+ */
+export const searchProducts = async ({
+  query,
+  countryCode,
+  limit = 12,
+}: {
+  query: string
+  countryCode: string
+  limit?: number
+}): Promise<HttpTypes.StoreProduct[]> => {
+  const q = query.trim()
+  if (!q) {
+    return []
+  }
+
+  const region = await getRegion(countryCode)
+  if (!region) {
+    return []
+  }
+
+  const headers = {
+    ...(await getAuthHeaders()),
+  }
+
+  try {
+    const { products } = await sdk.client.fetch<{
+      products: HttpTypes.StoreProduct[]
+      count: number
+    }>(`/store/meilisearch/products`, {
+      method: "GET",
+      query: {
+        query: q,
+        limit,
+        region_id: region.id,
+        fields:
+          "*variants.calculated_price,+variants.inventory_quantity,*variants.images,+metadata,+tags,*categories,",
+      },
+      headers,
+      cache: getFetchCacheMode(),
+    })
+    return products
+  } catch {
+    return []
   }
 }
