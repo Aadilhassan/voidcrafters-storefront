@@ -35,8 +35,7 @@ export const getCacheTag = async (tag: string): Promise<string> => {
 
 export const getCacheOptions = async (
   tag: string
-): Promise<{ tags: string[] } | {}> => {
-  if (typeof window !== "undefined") {
+): Promise<{ tags: string[] } | {}> => {  if (typeof window !== "undefined") {
     return {}
   }
 
@@ -91,3 +90,11 @@ export const removeCartId = async () => {
     maxAge: -1,
   })
 }
+
+/**
+ * In development always fetch fresh so backend edits (images, prices,
+ * categories) show immediately. Production keeps the tagged force-cache;
+ * revalidate via updateRegion on changes.
+ */
+export const getFetchCacheMode = (): "force-cache" | "no-store" =>
+  process.env.NODE_ENV === "development" ? "no-store" : "force-cache"

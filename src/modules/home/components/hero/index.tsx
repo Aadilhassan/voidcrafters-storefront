@@ -37,7 +37,7 @@ const Hero = () => {
         <p className="font-display text-xs tracking-[0.5em] text-blood-ember uppercase">
           Est. MMXXVI — India / Worldwide
         </p>
-        <h1 className="font-blackletter text-6xl small:text-8xl leading-none text-bone">
+        <h1 className="font-display font-black text-6xl small:text-8xl tracking-[0.12em] uppercase text-bone leading-[1.05]">
           Voidcrafters
         </h1>
         <p className="font-display text-sm small:text-base tracking-[0.25em] text-bone-dim uppercase">
@@ -59,6 +59,13 @@ const Hero = () => {
               Browse relics
             </span>
           </LocalizedClientLink>
+        </div>
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mt-4 text-[11px] tracking-[0.25em] uppercase text-bone-faint">
+          <span>10 relics live</span>
+          <span className="text-blood-ember">✦</span>
+          <span>Skin-safe steel</span>
+          <span className="text-blood-ember">✦</span>
+          <span>Ships across India</span>
         </div>
       </div>
     </div>

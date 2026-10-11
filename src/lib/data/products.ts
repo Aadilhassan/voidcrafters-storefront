@@ -4,7 +4,7 @@ import { sdk } from "@lib/config"
 import { sortProducts } from "@lib/util/sort-products"
 import { HttpTypes } from "@medusajs/types"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
-import { getAuthHeaders, getCacheOptions } from "./cookies"
+import { getAuthHeaders, getCacheOptions, getFetchCacheMode } from "./cookies"
 import { getRegion, retrieveRegion } from "./regions"
 
 export const listProducts = async ({
@@ -63,12 +63,15 @@ export const listProducts = async ({
           offset,
           region_id: region?.id,
           fields:
-            "*variants.calculated_price,+variants.inventory_quantity,*variants.images,+metadata,+tags,",
+            "*variants.calculated_price,+variants.inventory_quantity,*variants.images,+metadata,+tags,*categories,",
           ...queryParams,
         },
         headers,
         next,
-        cache: "force-cache",
+        // In development always fetch fresh so backend edits (images,
+        // prices, categories) show immediately. Production keeps the
+        // tagged force-cache; revalidate via updateRegion on changes.
+        cache: getFetchCacheMode(),
       }
     )
     .then(({ products, count }) => {

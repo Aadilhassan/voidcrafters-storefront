@@ -29,11 +29,14 @@ export default async function LatestDrops({
       <div className="flex flex-col small:flex-row small:items-end justify-between mb-8 gap-4">
         <div>
           <p className="font-display text-xs tracking-[0.4em] text-blood-ember uppercase mb-2">
-            Fresh from the crypt
+            Most wanted
           </p>
           <Text className="font-display text-3xl small:text-4xl text-bone">
             Latest Drops
           </Text>
+          <p className="text-bone-faint text-sm mt-2">
+            The first crypt drop — skin-safe steel, priced in rupees.
+          </p>
         </div>
         <InteractiveLink href="/store">View all relics</InteractiveLink>
       </div>

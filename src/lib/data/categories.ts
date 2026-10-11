@@ -1,6 +1,6 @@
 import { sdk } from "@lib/config"
 import { HttpTypes } from "@medusajs/types"
-import { getCacheOptions } from "./cookies"
+import { getCacheOptions, getFetchCacheMode } from "./cookies"
 
 export const listCategories = async (query?: Record<string, any>) => {
   const next = {
@@ -20,7 +20,7 @@ export const listCategories = async (query?: Record<string, any>) => {
           ...query,
         },
         next,
-        cache: "force-cache",
+        cache: getFetchCacheMode(),
       }
     )
     .then(({ product_categories }) => product_categories)
@@ -42,7 +42,7 @@ export const getCategoryByHandle = async (categoryHandle: string[]) => {
           handle,
         },
         next,
-        cache: "force-cache",
+        cache: getFetchCacheMode(),
       }
     )
     .then(({ product_categories }) => product_categories[0])
