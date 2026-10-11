@@ -2,6 +2,7 @@ import ItemsTemplate from "./items"
 import Summary from "./summary"
 import EmptyCartMessage from "../components/empty-cart-message"
 import SignInPrompt from "../components/sign-in-prompt"
+import NudgeBanner from "../components/nudge-banner"
 import Divider from "@modules/common/components/divider"
 import { HttpTypes } from "@medusajs/types"
 
@@ -24,6 +25,7 @@ const CartTemplate = ({
                   <Divider />
                 </>
               )}
+              <NudgeBanner />
               <ItemsTemplate cart={cart} />
             </div>
             <div className="relative">

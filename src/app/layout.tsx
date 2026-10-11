@@ -2,7 +2,9 @@ import { Cinzel } from "next/font/google"
 import { getBaseURL } from "@lib/util/env"
 import { Metadata } from "next"
 import Script from "next/script"
+import { Suspense } from "react"
 import SwRegister from "@modules/common/components/sw-register"
+import SessionTracker from "@modules/common/components/session-tracker"
 import "styles/globals.css"
 
 const GA_MEASUREMENT_ID = "G-BE98ZMP07T"
@@ -62,6 +64,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
     >
       <body>
         <main className="relative bg-void text-bone">{props.children}</main>
+        <Suspense>
+          <SessionTracker />
+        </Suspense>
         <SwRegister />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
